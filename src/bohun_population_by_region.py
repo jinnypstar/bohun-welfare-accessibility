@@ -33,6 +33,12 @@ for file in file_list:
     except Exception as e:
         print(f"❌ {file} 처리 중 오류:", e)
 
+# ✅ 지역명과 시군구명이 같은 행 제거
+before = len(merged_df)
+merged_df = merged_df[merged_df['지역명'] != merged_df['시군구명']]
+after = len(merged_df)
+print(f"🧹 삭제된 행 수: {before - after}")
+
 # 저장
 output_path = "../data/processed/veteran_population_by_region.csv"
 merged_df.to_csv(output_path, index=False, encoding='utf-8-sig')
